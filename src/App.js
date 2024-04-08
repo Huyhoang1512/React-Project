@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useMemo } from 'react';
 
 function App() {
+  const [number, setNumber] = useState(0);
+
+  const handleChange = (event) => {
+    const inputValue = parseInt(event.target.value);
+    setNumber(inputValue);
+  };
+
+  const increaseNumber = () => {
+    setNumber(number + 1);
+  };
+
+  const decreaseNumber = () => {
+    setNumber(number - 1);
+  };
+
+  const squaredNumber = useMemo(() => {
+    return number * number;
+  }, [number]);
+
+  //const squaredNumber = number * number;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Tăng/Giảm số nguyên và tính bình phương</h1>
+      <p>Nhập số nguyên:</p>
+      <input type="number" value={number} onChange={handleChange} />
+      <p>Số nguyên: {number}</p>
+      <p>Bình phương của số: {squaredNumber}</p>
+      <button onClick={increaseNumber}>Tăng</button>
+      <button onClick={decreaseNumber}>Giảm</button>
     </div>
   );
 }
